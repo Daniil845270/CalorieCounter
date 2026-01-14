@@ -6,7 +6,7 @@ from django.utils import timezone
 from .models import DietStats
 
 
-class DoesItEvenWorkTest(TestCase):
+class SanityCheck(TestCase):
     """
     the first ever automated test to see if what I did works
     """
@@ -25,4 +25,10 @@ class DoesItEvenWorkTest(TestCase):
     def test_first_test(self):
         salmon = DietStats.objects.get(name="salmon")
         self.assertEqual(salmon.meal_type, "B")
-        self.assertEqual(salmon.protein_per_100g, Decimal("24.2"))
+
+        self.assertAlmostEqual(salmon.protein_consumed, 18.392, delta=0.001)
+        self.assertAlmostEqual(salmon.carbohydrates_consumed, 0.76, delta=0.001)
+        self.assertAlmostEqual(salmon.fat_consumed, 6.308, delta=0.001)
+        self.assertAlmostEqual(salmon.kcal_consumed, 133.76,  delta=0.001)
+
+# test for negative numbers

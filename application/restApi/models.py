@@ -51,28 +51,21 @@ class DietStats(models.Model):
     # there is 100.0 -> TEST CASE
     # one problem with DecimalField is that all of the values here must be non-negative -> TEST CASE
 
-    protein_per_100g = models.DecimalField( 
-        max_digits=4,
-        decimal_places=1,
-        validators=[MinValueValidator(Decimal("0.0")),
-                    MaxValueValidator(Decimal("100.0")),],
+    protein_per_100g = models.FloatField( 
+        validators=[MinValueValidator(0),
+                    MaxValueValidator(100),],
     )
-    carbohydrates_per_100g = models.DecimalField(
-        max_digits=4,
-        decimal_places=1,
-        blank=True,
-        validators=[MinValueValidator(Decimal("0.0")),
-                    MaxValueValidator(Decimal("100.0")),],
+    carbohydrates_per_100g = models.FloatField(
+        validators=[MinValueValidator(0),
+                    MaxValueValidator(100),],
     )
-    fat_per_100g = models.DecimalField(
-        max_digits=4,
-        decimal_places=1,
-        validators=[MinValueValidator(Decimal("0.0")),
-                    MaxValueValidator(Decimal("100.0")),],
+    fat_per_100g = models.FloatField(
+        validators=[MinValueValidator(0),
+                    MaxValueValidator(100),],
     )
-    kcal_per_100g = models.PositiveIntegerField(
-        validators=[MinValueValidator(Decimal("0.0"))],
-    ) 
+    kcal_per_100g = models.FloatField(
+        validators=[MinValueValidator(0),],
+    )
     food_item_mass_in_grams = models.PositiveIntegerField(
         validators=[MinValueValidator(0)],
     ) 
