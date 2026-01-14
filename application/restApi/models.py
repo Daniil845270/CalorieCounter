@@ -1,27 +1,20 @@
-# okay, so the goal for today is to create a simple database model, and remember how to test whether it doesn't have any bugs
-# what do I want the end user to include into the table?
-    # the category of a meal (breakfast, lunch, dinner, snack, other)
-    # an estimate of the nutritious content (protein, sugars + carbohydrates, fat + saturates, energy in kcal, (salt?))
-    # date of when each entry was added
-    # a coupe of columns where some values would be calculated from the others
-        # cumulative energy/protein/sugar/fat intake for that day
-        # average daily intake for a week/month/year
-            # since I am adding a breakfast/lunch/dinner categories, maybe I can also make the statistics for 
-            # the food intake statistics for particular periods of times?
-# maybe it would also be useful to add a comment section
+"""
+Plan or summary of what I actually intend to implement
+
+you as a user your look at the back of a food product packaging, and enter 
+- proteins, fat, sugars and kcal for 100g of the product, and the weight in grams of the product that you have eaten
+- then the table calculates the actual macronutrients and energy content of the food you eaten, based on the calculations 
+- also, the table may have a functionality of calculating summary of the statistics per day/week/month/year, or by the 
+    time period that you request (but that will come later)
+"""
 
 
-# I will need to create a user model, which
-    # has a many to one relationship with the dietary information table, where 1 user can have more than one table (why?)
-# I will need to create a user model, where 
-    # 
-# when I will create a user interface, it may be a good idea to create a feature, where, for example, if you
+"""
+I will need to create a user model, which
+    has a many to one relationship with the dietary information table, where 1 user can have more than one table (why?)
 
-# when done, think about form validation, and how to test all of this
-
-
-# what I actually haven't thought about is that when I write the calory information of a product, I also need to write, how much 
-# of it was consumed -> also need to calculate the product of calories * mass of the food item
+when done, think about form validation, and how to test all of this
+"""
 
 from django.db import models
 import datetime
@@ -29,8 +22,9 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from decimal import Decimal
 
 class DietStats(models.Model):
-
-    # This part of the table consists of the values the user inputs
+    """
+    This part of the table consists of the values the user inputs
+    """
 
     MEAL_TYPE_CHOICES = {
         "B": "Breakfast",
@@ -39,6 +33,8 @@ class DietStats(models.Model):
         "S": "Snack",
         "O": "Other",
     }
+
+    name = models.CharField(max_length=100)
 
     # TEST CASE: when the database is working, figure out how to add per user date 
     # https://docs.djangoproject.com/en/6.0/topics/i18n/timezones/
@@ -55,50 +51,64 @@ class DietStats(models.Model):
     # there is 100.0 -> TEST CASE
     # one problem with DecimalField is that all of the values here must be non-negative -> TEST CASE
 
-    # this decimal thing looks too excessive and ugly, consider getting rid of it
-    protein = models.DecimalField( 
+    protein_per_100g = models.DecimalField( 
         max_digits=4,
         decimal_places=1,
         validators=[MinValueValidator(Decimal("0.0")),
                     MaxValueValidator(Decimal("100.0")),],
     )
-    carbohydrates = models.DecimalField(
+    carbohydrates_per_100g = models.DecimalField(
         max_digits=4,
         decimal_places=1,
         blank=True,
         validators=[MinValueValidator(Decimal("0.0")),
                     MaxValueValidator(Decimal("100.0")),],
     )
-    fat = models.DecimalField(
-        max_digit=4,
+    fat_per_100g = models.DecimalField(
+        max_digits=4,
         decimal_places=1,
         validators=[MinValueValidator(Decimal("0.0")),
                     MaxValueValidator(Decimal("100.0")),],
     )
-    # in kcal per 100g, should here be an upper limit?
-    energy = models.PositiveIntegerField(
+    kcal_per_100g = models.PositiveIntegerField(
         validators=[MinValueValidator(Decimal("0.0"))],
     ) 
-    
-    # consider adding these 2 later, when the base stuff is working
-    # sugars = models.DecimalField(
-    #     max_digits=4,
-    #     decimal_places=1,
-    #     validators=[MinValueValidator(Decimal("0.0")),
-    #                 MaxValueValidator(Decimal("100.0")),],
-    # )
-    # saturates = models.DecimalField(
-    #     max_digits=4,
-    #     decimal_places=1,
-    #     blank=True,
-    #     validators=[MinValueValidator(Decimal("0.0")),
-    #                 MaxValueValidator(Decimal("100.0")),],
-    # )
+    food_item_mass_in_grams = models.PositiveIntegerField(
+        validators=[MinValueValidator(0)],
+    ) 
 
-    # this part of the table consists of the values that are calculated based on the user input
+    """
+    This part of the table consists of the values that are calculated form the user input 
+    """
 
+    protein_consumed = models.GeneratedField(
+        expression= (models.F("protein_per_100g") * 
+                     models.F("food_item_mass_in_grams")) / 
+                     100,
+        output_field=models.FloatField(),
+        db_persist=True
+    )
 
-# figure this out later
-# class User(models.Model):
-#     first_name = models.CharField(max_length=30)
-#     last_name = models.CharField(max_length=30)
+    carbohydrates_consumed = models.GeneratedField(
+        expression= (models.F("carbohydrates_per_100g") * 
+                     models.F("food_item_mass_in_grams")) / 
+                     100,
+        output_field=models.FloatField(),
+        db_persist=True
+    )
+
+    fat_consumed = models.GeneratedField(
+        expression= (models.F("fat_per_100g") * 
+                     models.F("food_item_mass_in_grams")) / 
+                     100,
+        output_field=models.FloatField(),
+        db_persist=True
+    )
+
+    kcal_consumed = models.GeneratedField(
+        expression= (models.F("kcal_per_100g") * 
+                     models.F("food_item_mass_in_grams")) / 
+                     100,
+        output_field=models.FloatField(),
+        db_persist=True
+    )
