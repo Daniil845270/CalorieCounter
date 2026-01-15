@@ -4,6 +4,7 @@ Plan or summary of what I actually intend to implement
 you as a user your look at the back of a food product packaging, and enter 
 - proteins, fat, sugars and kcal for 100g of the product, and the weight in grams of the product that you have eaten
 - then the table calculates the actual macronutrients and energy content of the food you eaten, based on the calculations 
+    ->  form validation is not implemented
 - also, the table may have a functionality of calculating summary of the statistics per day/week/month/year, or by the 
     time period that you request (but that will come later)
 """
@@ -18,8 +19,7 @@ when done, think about form validation, and how to test all of this
 
 from django.db import models
 import datetime
-from django.core.validators import MaxValueValidator, MinValueValidator
-from decimal import Decimal
+# from django.core.validators import MaxValueValidator, MinValueValidator
 
 class DietStats(models.Model):
     """
@@ -34,7 +34,7 @@ class DietStats(models.Model):
         "O": "Other",
     }
 
-    name = models.CharField(max_length=100)
+    meal_name = models.CharField(max_length=100)
 
     # TEST CASE: when the database is working, figure out how to add per user date 
     # https://docs.djangoproject.com/en/6.0/topics/i18n/timezones/
@@ -51,24 +51,11 @@ class DietStats(models.Model):
     # there is 100.0 -> TEST CASE
     # one problem with DecimalField is that all of the values here must be non-negative -> TEST CASE
 
-    protein_per_100g = models.FloatField( 
-        validators=[MinValueValidator(0),
-                    MaxValueValidator(100),],
-    )
-    carbohydrates_per_100g = models.FloatField(
-        validators=[MinValueValidator(0),
-                    MaxValueValidator(100),],
-    )
-    fat_per_100g = models.FloatField(
-        validators=[MinValueValidator(0),
-                    MaxValueValidator(100),],
-    )
-    kcal_per_100g = models.FloatField(
-        validators=[MinValueValidator(0),],
-    )
-    food_item_mass_in_grams = models.PositiveIntegerField(
-        validators=[MinValueValidator(0)],
-    ) 
+    protein_per_100g = models.FloatField()
+    carbohydrates_per_100g = models.FloatField()
+    fat_per_100g = models.FloatField()
+    kcal_per_100g = models.FloatField()
+    food_item_mass_in_grams = models.PositiveIntegerField() 
 
     """
     This part of the table consists of the values that are calculated form the user input 
