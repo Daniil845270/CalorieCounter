@@ -1,22 +1,3 @@
-"""
-Plan or summary of what I actually intend to implement
-
-you as a user your look at the back of a food product packaging, and enter 
-- proteins, fat, sugars and kcal for 100g of the product, and the weight in grams of the product that you have eaten
-- then the table calculates the actual macronutrients and energy content of the food you eaten, based on the calculations 
-    ->  form validation is not implemented
-- also, the table may have a functionality of calculating summary of the statistics per day/week/month/year, or by the 
-    time period that you request (but that will come later)
-"""
-
-
-"""
-I will need to create a user model, which
-    has a many to one relationship with the dietary information table, where 1 user can have more than one table (why?)
-
-when done, think about form validation, and how to test all of this
-"""
-
 from django.db import models
 import datetime
 # from django.core.validators import MaxValueValidator, MinValueValidator

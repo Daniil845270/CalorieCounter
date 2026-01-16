@@ -1,0 +1,563 @@
+[
+  {
+    "meal_name": "Smoked salmon bagel",
+    "entry_date": "2021-02-14",
+    "meal_type": "B",
+    "protein_per_100g": 18.6,
+    "carbohydrates_per_100g": 24.9,
+    "fat_per_100g": 9.8,
+    "kcal_per_100g": 236.0,
+    "food_item_mass_in_grams": 165
+  },
+  {
+    "meal_name": "Chicken pesto pasta",
+    "entry_date": "2022-11-03",
+    "meal_type": "D",
+    "protein_per_100g": 12.4,
+    "carbohydrates_per_100g": 27.6,
+    "fat_per_100g": 8.1,
+    "kcal_per_100g": 241.0,
+    "food_item_mass_in_grams": 320
+  },
+  {
+    "meal_name": "Cucumber water",
+    "entry_date": "2023-06-22",
+    "meal_type": "S",
+    "protein_per_100g": 0.0,
+    "carbohydrates_per_100g": 1.8,
+    "fat_per_100g": 0.4,
+    "kcal_per_100g": 12.0,
+    "food_item_mass_in_grams": 450
+  },
+  {
+    "meal_name": "Banana oat smoothie",
+    "entry_date": "2024-01-09",
+    "meal_type": "B",
+    "protein_per_100g": 7.2,
+    "carbohydrates_per_100g": 0.0,
+    "fat_per_100g": 3.6,
+    "kcal_per_100g": 118.0,
+    "food_item_mass_in_grams": 380
+  },
+  {
+    "meal_name": "Rice cakes with jam",
+    "entry_date": "2025-09-18",
+    "meal_type": "S",
+    "protein_per_100g": 6.8,
+    "carbohydrates_per_100g": 79.1,
+    "fat_per_100g": 0.0,
+    "kcal_per_100g": 375.0,
+    "food_item_mass_in_grams": 42
+  },
+  {
+    "meal_name": "Whey shake in water",
+    "entry_date": "2021-07-27",
+    "meal_type": "O",
+    "protein_per_100g": 100.0,
+    "carbohydrates_per_100g": 2.1,
+    "fat_per_100g": 1.3,
+    "kcal_per_100g": 412.0,
+    "food_item_mass_in_grams": 35
+  },
+  {
+    "meal_name": "Plain popcorn (air-popped)",
+    "entry_date": "2022-03-08",
+    "meal_type": "S",
+    "protein_per_100g": 12.0,
+    "carbohydrates_per_100g": 100.0,
+    "fat_per_100g": 4.2,
+    "kcal_per_100g": 387.0,
+    "food_item_mass_in_grams": 55
+  },
+  {
+    "meal_name": "Olive oil drizzle",
+    "entry_date": "2023-10-11",
+    "meal_type": "O",
+    "protein_per_100g": 0.6,
+    "carbohydrates_per_100g": 0.4,
+    "fat_per_100g": 100.0,
+    "kcal_per_100g": 884.0,
+    "food_item_mass_in_grams": 12
+  },
+  {
+    "meal_name": "Turkey and avocado wrap",
+    "entry_date": "2026-01-05",
+    "meal_type": "L",
+    "protein_per_100g": 14.3,
+    "carbohydrates_per_100g": 22.8,
+    "fat_per_100g": 11.9,
+    "kcal_per_100g": 255.0,
+    "food_item_mass_in_grams": 290
+  },
+  {
+    "meal_name": "Tomato soup (thin)",
+    "entry_date": "2024-04-16",
+    "meal_type": "D",
+    "protein_per_100g": 2.4,
+    "carbohydrates_per_100g": 7.9,
+    "fat_per_100g": 1.8,
+    "kcal_per_100g": 42.0,
+    "food_item_mass_in_grams": 0
+  },
+  {
+    "meal_name": "Mixed nuts bowl",
+    "entry_date": "2022-12-21",
+    "meal_type": "S",
+    "protein_per_100g": 18.2,
+    "carbohydrates_per_100g": 16.1,
+    "fat_per_100g": 54.7,
+    "kcal_per_100g": 607.0,
+    "food_item_mass_in_grams": 100000
+  },
+  {
+    "meal_name": "Diet jelly cup",
+    "entry_date": "2021-05-02",
+    "meal_type": "S",
+    "protein_per_100g": 1.1,
+    "carbohydrates_per_100g": 6.4,
+    "fat_per_100g": 0.7,
+    "kcal_per_100g": 0.0,
+    "food_item_mass_in_grams": 125
+  },
+  {
+    "meal_name": "Astronaut ration bar",
+    "entry_date": "2025-02-28",
+    "meal_type": "O",
+    "protein_per_100g": 9.7,
+    "carbohydrates_per_100g": 51.2,
+    "fat_per_100g": 28.4,
+    "kcal_per_100g": 100000.0,
+    "food_item_mass_in_grams": 60
+  },
+  {
+    "meal_name": "Herbal tea (unsweetened)",
+    "entry_date": "2023-01-19",
+    "meal_type": "O",
+    "protein_per_100g": 0.0,
+    "carbohydrates_per_100g": 0.8,
+    "fat_per_100g": 0.3,
+    "kcal_per_100g": 3.0,
+    "food_item_mass_in_grams": 300
+  },
+  {
+    "meal_name": "Apple slices",
+    "entry_date": "2024-09-07",
+    "meal_type": "S",
+    "protein_per_100g": 0.4,
+    "carbohydrates_per_100g": 0.0,
+    "fat_per_100g": 0.2,
+    "kcal_per_100g": 52.0,
+    "food_item_mass_in_grams": 180
+  },
+  {
+    "meal_name": "Steamed zucchini",
+    "entry_date": "2022-06-13",
+    "meal_type": "D",
+    "protein_per_100g": 1.6,
+    "carbohydrates_per_100g": 3.1,
+    "fat_per_100g": 0.0,
+    "kcal_per_100g": 19.0,
+    "food_item_mass_in_grams": 240
+  },
+  {
+    "meal_name": "Protein crispbread",
+    "entry_date": "2026-11-12",
+    "meal_type": "B",
+    "protein_per_100g": 100.0,
+    "carbohydrates_per_100g": 9.5,
+    "fat_per_100g": 6.2,
+    "kcal_per_100g": 420.0,
+    "food_item_mass_in_grams": 45
+  },
+  {
+    "meal_name": "Table sugar spoon",
+    "entry_date": "2021-08-04",
+    "meal_type": "O",
+    "protein_per_100g": 0.2,
+    "carbohydrates_per_100g": 100.0,
+    "fat_per_100g": 0.4,
+    "kcal_per_100g": 387.0,
+    "food_item_mass_in_grams": 8
+  },
+  {
+    "meal_name": "Butter pat",
+    "entry_date": "2025-12-09",
+    "meal_type": "O",
+    "protein_per_100g": 0.9,
+    "carbohydrates_per_100g": 0.8,
+    "fat_per_100g": 100.0,
+    "kcal_per_100g": 717.0,
+    "food_item_mass_in_grams": 10
+  },
+  {
+    "meal_name": "Miso ramen bowl",
+    "entry_date": "2023-03-23",
+    "meal_type": "L",
+    "protein_per_100g": 7.8,
+    "carbohydrates_per_100g": 19.6,
+    "fat_per_100g": 6.9,
+    "kcal_per_100g": 168.0,
+    "food_item_mass_in_grams": 540
+  },
+  {
+    "meal_name": "Greek yogurt with berries",
+    "entry_date": "2022-01-25",
+    "meal_type": "B",
+    "protein_per_100g": 10.2,
+    "carbohydrates_per_100g": 8.7,
+    "fat_per_100g": 2.9,
+    "kcal_per_100g": 88.0,
+    "food_item_mass_in_grams": 220
+  },
+  {
+    "meal_name": "Beef stir-fry with rice",
+    "entry_date": "2024-07-02",
+    "meal_type": "D",
+    "protein_per_100g": 11.7,
+    "carbohydrates_per_100g": 23.4,
+    "fat_per_100g": 7.5,
+    "kcal_per_100g": 205.0,
+    "food_item_mass_in_grams": 610
+  },
+  {
+    "meal_name": "Sparkling water",
+    "entry_date": "2021-10-20",
+    "meal_type": "O",
+    "protein_per_100g": 0.6,
+    "carbohydrates_per_100g": 0.9,
+    "fat_per_100g": 0.7,
+    "kcal_per_100g": 7.0,
+    "food_item_mass_in_grams": 0
+  },
+  {
+    "meal_name": "Family-size chili pot",
+    "entry_date": "2026-05-18",
+    "meal_type": "D",
+    "protein_per_100g": 8.9,
+    "carbohydrates_per_100g": 14.2,
+    "fat_per_100g": 6.3,
+    "kcal_per_100g": 149.0,
+    "food_item_mass_in_grams": 100000
+  },
+  {
+    "meal_name": "Konjac noodles",
+    "entry_date": "2023-08-06",
+    "meal_type": "L",
+    "protein_per_100g": 0.7,
+    "carbohydrates_per_100g": 2.1,
+    "fat_per_100g": 0.4,
+    "kcal_per_100g": 0.0,
+    "food_item_mass_in_grams": 200
+  },
+  {
+    "meal_name": "Ultra-dense emergency biscuit",
+    "entry_date": "2025-06-11",
+    "meal_type": "O",
+    "protein_per_100g": 7.4,
+    "carbohydrates_per_100g": 66.2,
+    "fat_per_100g": 20.3,
+    "kcal_per_100g": 100000.0,
+    "food_item_mass_in_grams": 95
+  },
+  {
+    "meal_name": "Black coffee",
+    "entry_date": "2021-12-02",
+    "meal_type": "B",
+    "protein_per_100g": 0.0,
+    "carbohydrates_per_100g": 0.6,
+    "fat_per_100g": 0.2,
+    "kcal_per_100g": 2.0,
+    "food_item_mass_in_grams": 250
+  },
+  {
+    "meal_name": "Watermelon cubes",
+    "entry_date": "2024-06-28",
+    "meal_type": "S",
+    "protein_per_100g": 0.6,
+    "carbohydrates_per_100g": 0.0,
+    "fat_per_100g": 0.3,
+    "kcal_per_100g": 30.0,
+    "food_item_mass_in_grams": 300
+  },
+  {
+    "meal_name": "Clear vegetable broth",
+    "entry_date": "2022-02-09",
+    "meal_type": "D",
+    "protein_per_100g": 1.2,
+    "carbohydrates_per_100g": 2.8,
+    "fat_per_100g": 0.0,
+    "kcal_per_100g": 18.0,
+    "food_item_mass_in_grams": 400
+  },
+  {
+    "meal_name": "Egg white omelette",
+    "entry_date": "2026-09-21",
+    "meal_type": "B",
+    "protein_per_100g": 100.0,
+    "carbohydrates_per_100g": 1.1,
+    "fat_per_100g": 2.4,
+    "kcal_per_100g": 140.0,
+    "food_item_mass_in_grams": 210
+  },
+  {
+    "meal_name": "White rice (plain)",
+    "entry_date": "2023-04-15",
+    "meal_type": "L",
+    "protein_per_100g": 7.6,
+    "carbohydrates_per_100g": 100.0,
+    "fat_per_100g": 1.2,
+    "kcal_per_100g": 365.0,
+    "food_item_mass_in_grams": 260
+  },
+  {
+    "meal_name": "Ghee spoon",
+    "entry_date": "2025-03-04",
+    "meal_type": "O",
+    "protein_per_100g": 0.8,
+    "carbohydrates_per_100g": 0.5,
+    "fat_per_100g": 100.0,
+    "kcal_per_100g": 900.0,
+    "food_item_mass_in_grams": 14
+  },
+  {
+    "meal_name": "Tuna salad bowl",
+    "entry_date": "2022-07-19",
+    "meal_type": "L",
+    "protein_per_100g": 20.5,
+    "carbohydrates_per_100g": 6.9,
+    "fat_per_100g": 9.4,
+    "kcal_per_100g": 194.0,
+    "food_item_mass_in_grams": 310
+  },
+  {
+    "meal_name": "Overnight oats with chia",
+    "entry_date": "2021-03-17",
+    "meal_type": "B",
+    "protein_per_100g": 8.1,
+    "carbohydrates_per_100g": 26.3,
+    "fat_per_100g": 7.7,
+    "kcal_per_100g": 214.0,
+    "food_item_mass_in_grams": 280
+  },
+  {
+    "meal_name": "Lentil curry",
+    "entry_date": "2024-10-12",
+    "meal_type": "D",
+    "protein_per_100g": 9.3,
+    "carbohydrates_per_100g": 18.4,
+    "fat_per_100g": 5.2,
+    "kcal_per_100g": 156.0,
+    "food_item_mass_in_grams": 520
+  },
+  {
+    "meal_name": "Cinnamon skyr cup",
+    "entry_date": "2025-07-26",
+    "meal_type": "S",
+    "protein_per_100g": 12.8,
+    "carbohydrates_per_100g": 7.4,
+    "fat_per_100g": 0.9,
+    "kcal_per_100g": 84.0,
+    "food_item_mass_in_grams": 170
+  },
+  {
+    "meal_name": "Halloumi salad",
+    "entry_date": "2022-09-05",
+    "meal_type": "L",
+    "protein_per_100g": 13.9,
+    "carbohydrates_per_100g": 8.2,
+    "fat_per_100g": 16.7,
+    "kcal_per_100g": 244.0,
+    "food_item_mass_in_grams": 350
+  },
+  {
+    "meal_name": "Peanut butter toast",
+    "entry_date": "2023-11-24",
+    "meal_type": "B",
+    "protein_per_100g": 12.6,
+    "carbohydrates_per_100g": 35.8,
+    "fat_per_100g": 19.3,
+    "kcal_per_100g": 362.0,
+    "food_item_mass_in_grams": 140
+  },
+  {
+    "meal_name": "Sardines on crackers",
+    "entry_date": "2021-09-09",
+    "meal_type": "L",
+    "protein_per_100g": 19.8,
+    "carbohydrates_per_100g": 21.4,
+    "fat_per_100g": 13.1,
+    "kcal_per_100g": 279.0,
+    "food_item_mass_in_grams": 185
+  },
+  {
+    "meal_name": "Mango lassi",
+    "entry_date": "2024-05-21",
+    "meal_type": "S",
+    "protein_per_100g": 3.9,
+    "carbohydrates_per_100g": 15.6,
+    "fat_per_100g": 2.7,
+    "kcal_per_100g": 98.0,
+    "food_item_mass_in_grams": 300
+  },
+  {
+    "meal_name": "Beetroot hummus",
+    "entry_date": "2026-03-08",
+    "meal_type": "O",
+    "protein_per_100g": 7.5,
+    "carbohydrates_per_100g": 12.9,
+    "fat_per_100g": 9.8,
+    "kcal_per_100g": 168.0,
+    "food_item_mass_in_grams": 110
+  },
+  {
+    "meal_name": "Cod fillet with lemon",
+    "entry_date": "2023-02-07",
+    "meal_type": "D",
+    "protein_per_100g": 17.6,
+    "carbohydrates_per_100g": 2.1,
+    "fat_per_100g": 1.9,
+    "kcal_per_100g": 96.0,
+    "food_item_mass_in_grams": 240
+  },
+  {
+    "meal_name": "Cheese and tomato sandwich",
+    "entry_date": "2022-04-28",
+    "meal_type": "L",
+    "protein_per_100g": 10.4,
+    "carbohydrates_per_100g": 28.7,
+    "fat_per_100g": 12.2,
+    "kcal_per_100g": 268.0,
+    "food_item_mass_in_grams": 210
+  },
+  {
+    "meal_name": "Pumpkin soup",
+    "entry_date": "2025-10-03",
+    "meal_type": "D",
+    "protein_per_100g": 2.1,
+    "carbohydrates_per_100g": 9.6,
+    "fat_per_100g": 3.2,
+    "kcal_per_100g": 61.0,
+    "food_item_mass_in_grams": 430
+  },
+  {
+    "meal_name": "Chocolate protein bar",
+    "entry_date": "2021-06-16",
+    "meal_type": "S",
+    "protein_per_100g": 25.2,
+    "carbohydrates_per_100g": 41.7,
+    "fat_per_100g": 17.8,
+    "kcal_per_100g": 402.0,
+    "food_item_mass_in_grams": 65
+  },
+  {
+    "meal_name": "Caesar salad (light)",
+    "entry_date": "2024-08-25",
+    "meal_type": "L",
+    "protein_per_100g": 8.6,
+    "carbohydrates_per_100g": 6.5,
+    "fat_per_100g": 10.9,
+    "kcal_per_100g": 154.0,
+    "food_item_mass_in_grams": 360
+  },
+  {
+    "meal_name": "Soba noodles with tofu",
+    "entry_date": "2026-07-14",
+    "meal_type": "D",
+    "protein_per_100g": 9.1,
+    "carbohydrates_per_100g": 24.8,
+    "fat_per_100g": 6.6,
+    "kcal_per_100g": 198.0,
+    "food_item_mass_in_grams": 480
+  },
+  {
+    "meal_name": "Porridge with honey",
+    "entry_date": "2022-10-10",
+    "meal_type": "B",
+    "protein_per_100g": 5.7,
+    "carbohydrates_per_100g": 18.9,
+    "fat_per_100g": 3.8,
+    "kcal_per_100g": 122.0,
+    "food_item_mass_in_grams": 350
+  },
+  {
+    "meal_name": "Chicken tikka pieces",
+    "entry_date": "2023-09-27",
+    "meal_type": "L",
+    "protein_per_100g": 19.3,
+    "carbohydrates_per_100g": 6.2,
+    "fat_per_100g": 8.7,
+    "kcal_per_100g": 186.0,
+    "food_item_mass_in_grams": 260
+  },
+  {
+    "meal_name": "Pineapple cottage cheese",
+    "entry_date": "2021-01-08",
+    "meal_type": "S",
+    "protein_per_100g": 12.3,
+    "carbohydrates_per_100g": 9.8,
+    "fat_per_100g": 4.6,
+    "kcal_per_100g": 126.0,
+    "food_item_mass_in_grams": 200
+  },
+  {
+    "meal_name": "Vegetable sushi set",
+    "entry_date": "2025-04-17",
+    "meal_type": "D",
+    "protein_per_100g": 6.4,
+    "carbohydrates_per_100g": 26.1,
+    "fat_per_100g": 4.4,
+    "kcal_per_100g": 170.0,
+    "food_item_mass_in_grams": 520
+  },
+  {
+    "meal_name": "Pita with falafel",
+    "entry_date": "2024-12-06",
+    "meal_type": "L",
+    "protein_per_100g": 9.9,
+    "carbohydrates_per_100g": 31.4,
+    "fat_per_100g": 12.6,
+    "kcal_per_100g": 284.0,
+    "food_item_mass_in_grams": 410
+  },
+  {
+    "meal_name": "Baked sweet potato",
+    "entry_date": "2022-05-07",
+    "meal_type": "D",
+    "protein_per_100g": 1.7,
+    "carbohydrates_per_100g": 20.1,
+    "fat_per_100g": 0.7,
+    "kcal_per_100g": 90.0,
+    "food_item_mass_in_grams": 260
+  },
+  {
+    "meal_name": "Granola with milk",
+    "entry_date": "2026-02-22",
+    "meal_type": "B",
+    "protein_per_100g": 9.6,
+    "carbohydrates_per_100g": 44.2,
+    "fat_per_100g": 11.5,
+    "kcal_per_100g": 354.0,
+    "food_item_mass_in_grams": 180
+  },
+  {
+    "meal_name": "Steak and potatoes",
+    "entry_date": "2023-07-03",
+    "meal_type": "D",
+    "protein_per_100g": 14.9,
+    "carbohydrates_per_100g": 17.8,
+    "fat_per_100g": 10.7,
+    "kcal_per_100g": 228.0,
+    "food_item_mass_in_grams": 620
+  },
+  {
+    "meal_name": "Blueberry pancake stack",
+    "entry_date": "2021-04-26",
+    "meal_type": "B",
+    "protein_per_100g": 6.3,
+    "carbohydrates_per_100g": 34.9,
+    "fat_per_100g": 9.6,
+    "kcal_per_100g": 248.0,
+    "food_item_mass_in_grams": 340
+  }
+]
+
