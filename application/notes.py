@@ -26,6 +26,9 @@ As a part of the application, include a
     pagination
 """
 
+# what would be cool to add is search for food items that a user has already inputted, so that you wouldn't have to insert the 
+# nutrition values all over again and could just enter the mass of the food item
+
 """
 Lets start with something simple:figure out how to create 
 
