@@ -34,10 +34,30 @@ class DietStatsSerializer(serializers.ModelSerializer):
         """
         when I will start implementing the user class, I will need to adapt the code to support different timezones
         """
-        # difference = short_future - today
-        if data['entry_date'] - datetime.date.today() > 6:
+        if data['entry_date'] - datetime.date.today() > datetime.timedelta(days=6):
             raise serializers.ValidationError("You can not enter items more than a week in a future")
- 
+        
+        """
+        Validating Free-form Unicode Text appears to be too big of a topic for the purpose of the project at the current state. 
+        Therefore, for security reasons, I'll just restrict the valid input to the a set of allowed characters
+        """ 
+        submitted_name = " ".join(data['meal_name'].strip().split())
+        if submitted_name == '':
+            raise serializers.ValidationError("Item must have a name")
+        
+        allowlist_string = ("abcdefghijklmnopqrstuvwxyz"
+                            "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                            "1234567890 ") #letter, numbers and a whitespace
+        
+        for char in submitted_name:
+            if char not in allowlist_string:
+                raise serializers.ValidationError("Food item contains illegal characters. Use only letters and numbers")
+            
+        if len(submitted_name) > 100:
+            raise serializers.ValidationError("Item name is too long")
+            
+        data['meal_name'] = submitted_name
+  
         return data
 
 

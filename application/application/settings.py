@@ -73,6 +73,8 @@ WSGI_APPLICATION = 'application.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+# When I'll go into production, I will need to choose another database 
+# (MySQL or PostgreSQL and set them up accordingly)
 
 DATABASES = {
     'default': {

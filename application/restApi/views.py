@@ -19,6 +19,11 @@ class DietStatsView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.Gen
         return self.create(request, *args, **kwargs) 
 
 
+# the following piece of code needs to be refactored into a separate service layer 
+
+
+"""
+
 # retrieves all of the objects from the database
 class SimpleAllObjectRetrievalView(mixins.ListModelMixin, generics.GenericAPIView):
     queryset = DietStats.objects.all()
@@ -37,9 +42,9 @@ class SimpleSingleObjectRetrievalView(mixins.RetrieveModelMixin, generics.Generi
 
 # this code returns the macronutrient and kcal summary of the food eaten over the past year
 class PastYearStatisticsView(APIView):
-    """
-    Get the averages of macros and kcal from the entries of the past year and send them to the client
-    """
+
+    #Get the averages of macros and kcal from the entries of the past year and send them to the client
+
 
     def get(self, request, format=None):
         last_year = datetime.date.today() - datetime.timedelta(days=360)
@@ -52,9 +57,9 @@ class PastYearStatisticsView(APIView):
         return Response(serialised.data)
     
 class PastMonthStatisticsView(APIView):
-    """
-    Get the averages of macros and kcal from the entries of the past year and send them to the client
-    """
+
+   # Get the averages of macros and kcal from the entries of the past year and send them to the client
+ 
 
     def get(self, request, format=None):
         last_year = datetime.date.today() - datetime.timedelta(days=30)
@@ -69,9 +74,9 @@ class PastMonthStatisticsView(APIView):
 # there must be a better way to do this, than repeating yourself. 
 # Maybe create a separate form and extract the query parameters form the url of the query?
 class PastWeekStatisticsView(APIView):
-    """
-    Get the averages of macros and kcal from the entries of the past year and send them to the client
-    """
+ 
+    #Get the averages of macros and kcal from the entries of the past year and send them to the client
+
 
     def get(self, request, format=None):
         last_year = datetime.date.today() - datetime.timedelta(days=7)
@@ -154,4 +159,4 @@ class DietTracking():
     # def get_weekly_progression -> to implement
 
     
-    
+    """
