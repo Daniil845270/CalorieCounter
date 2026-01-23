@@ -36,7 +36,7 @@ class DietStats(models.Model):
     carbohydrates_per_100g = models.FloatField()
     fat_per_100g = models.FloatField()
     kcal_per_100g = models.FloatField()
-    food_item_mass_in_grams = models.PositiveIntegerField() 
+    food_item_mass_in_grams = models.FloatField() 
 
     """
     This part of the table consists of the values that are calculated form the user input 
