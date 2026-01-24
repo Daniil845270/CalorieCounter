@@ -1,7 +1,6 @@
 import pytest
 import logging
 import datetime
-# import warnings
 from hypothesis import given, strategies as st
 import unicodedata
 from rest_framework.test import APIClient
@@ -9,7 +8,7 @@ from rest_framework.test import APIClient
 logger = logging.getLogger(__name__)
 
 
-# this function is absolutely disgusting, but I'm too tired to rewrite it
+# this function is absolutely disgusting, but it works, and at this stage rewriting is just not worth it
 def variable_payload(
         meal_name='test',
         entry_date=datetime.date.today(), # when creating further tests, be aware that this parameter may not be there in there
@@ -129,6 +128,7 @@ check_string = (
     "\x1c\x1d\x1e\x1f"  # U+001C..U+001F separators
     "\x85"      # U+0085 next line (NEL)
     "\xa0"      # U+00A0 no-break space (NBSP)
+    "\n"        # U+000A end of line
 )
 """
 I am including these unicode characters here because of the following logic
@@ -140,7 +140,14 @@ I am including these unicode characters here because of the following logic
 """
 
 @pytest.mark.django_db
-@given(illegal_name=st.text(min_size=1, max_size=99).filter(lambda n: not (set(n) <= set(check_string))).filter(lambda n: " ".join(n.strip().split()) != ''))
+@given(
+    illegal_name=st.text(
+        min_size=1, max_size=99
+        ).filter(
+            lambda n: not (set(n) <= set(check_string))
+            ).filter(
+                lambda n: " ".join(n.strip().split()) != '')
+    )
 def test_meal_name_hypothesis_testing(illegal_name) -> None:
 
     payload = variable_payload(meal_name=illegal_name)
@@ -165,32 +172,10 @@ def test_meal_name_hypothesis_testing(illegal_name) -> None:
 """
 What else needs to be checked?
 
-    protein
-    fat
-    kcal
-    food_item_mass_in_grams
-
-        FOR THAT SET UP A FUZZER
-
-        if (data['macro_100g'] < 0 or
-            data['food_item_mass_in_grams'] < 0 or
-            data['kcal_per_100g'] < 0):
-            raise serializers.ValidationError('nutrition values can not be negative')
-
         Check if other data types can also be permitted (decimals, floats, integers)
 
-        FOR THAT SET UP A FUZZER
-        if (data['macro_100g'] > 100
-            raise serializers.ValidationError('100 grams of food can not have more than a 100g of a macronutrient')
-        
-        FOR THAT SET UP A FUZZER
-        if (data['food_item_mass_in_grams'] > 5000 or 
-            data['kcal_per_100g'] > 900):
-            raise serializers.ValidationError('The food mass or kcal value is too big.')
-        
-        FOR THAT SET UP A FUZZER
-        if data['protein_per_100g'] + data['carbohydrates_per_100g'] + data['fat_per_100g'] > 100:
-            raise serializers.ValidationError("Sum of macronutrients per 100g can not 100g")
+        the food type is the last thing to check
+
 
 """
 
@@ -230,9 +215,82 @@ def test_macro_too_low_hypothesis_testing(macro_too_low) -> None:
         response_create = client.post('/diet/', data=payload, format="json")
         assert response_create.status_code == 400 
         assert response_create.data['non_field_errors'][0] == 'nutrition values can not be negative'
+        
 
-# if "alt_protein" in kwargs: reply['protein_per_100g'] = kwargs['alt_protein']
-# if "alt_carbohydrates" in kwargs:reply['carbohydrates_per_100g'] = kwargs['alt_carbohydrates']
-# if "alt_fat" in kwargs: reply['fat_per_100g'] = kwargs['alt_fat']
-# if "alt_kcal" in kwargs: reply['kcal_per_100g'] = kwargs['alt_kcal']
-# if "alt_item_mass" in kwargs: reply['food_item_mass_in_grams'] = kwargs['alt_item_mass']
+@pytest.mark.django_db
+@given(
+    macro_too_high=(
+        st.integers(min_value=5001) | st.floats(min_value=5000.00001)
+        ).filter(
+            lambda n: float('-inf') < n < float('inf')
+            )
+    )
+def test_item_mass_too_high_hypothesis_testing(macro_too_high) -> None:
+    # logger.info(f"macro_too_high: {macro_too_high}" )
+    client = APIClient()
+
+    payload = variable_payload(food_item_mass_in_grams=macro_too_high)
+    response_create = client.post('/diet/', data=payload, format="json")
+    assert response_create.status_code == 400 
+    assert response_create.data['non_field_errors'][0] == "The food mass or kcal value is too big."
+
+@pytest.mark.django_db
+@given(macro_too_high=(st.integers(min_value=5001) | st.floats(min_value=5000.00001)).filter(lambda n: float('-inf') < n < float('inf')))
+def test_kcal_too_high_hypothesis_testing(macro_too_high) -> None:
+    # logger.info(f"macro_too_high: {macro_too_high}" )
+    client = APIClient()
+
+    payload = variable_payload(kcal_per_100g=macro_too_high)
+    response_create = client.post('/diet/', data=payload, format="json")
+    assert response_create.status_code == 400 
+    assert response_create.data['non_field_errors'][0] == "The food mass or kcal value is too big."
+
+
+
+@pytest.mark.django_db
+@given(
+    macro_list=st.lists(
+        st.integers(
+            min_value=0, 
+            max_value=100
+            ) | 
+        st.floats(
+            min_value=0, 
+            max_value=100
+            ).filter(lambda n: float('-inf') < n < float('inf')), 
+        min_size=3,
+        max_size=3,
+        ).filter(lambda n: sum(n) > 100)
+)
+def test_macros_sum_too_high_hypothesis_testing(macro_list) -> None:
+    # logger.info(f" {macro_list}; their sum is {sum(macro_list)}" )
+
+    protein, sugar, fat = macro_list
+
+    macro_sum_too_high = {
+        "alt_protein": protein,
+        "alt_carbohydrates": sugar,
+        "alt_fat": fat,
+    }
+
+    client = APIClient()
+    payload = variable_payload(**macro_sum_too_high)
+    response_create = client.post('/diet/', data=payload, format="json")
+    assert response_create.status_code == 400 
+    assert response_create.data['non_field_errors'][0] == "Sum of macronutrients per 100g can not 100g"
+
+
+allowed_meal_types = "BLDSO"
+@pytest.mark.django_db
+@given(
+    illegal_type=st.text().filter(
+            lambda n: not (set(n) <= set(allowed_meal_types))
+            )
+    )
+def test_meal_type_hypothesis_testing(illegal_type) -> None:
+    client = APIClient()
+
+    payload = variable_payload(meal_type=illegal_type)
+    response_create = client.post('/diet/', data=payload, format="json")
+    assert response_create.status_code == 400 
+    assert response_create.data['meal_type'][0] == f'"{illegal_type}" is not a valid choice.'
