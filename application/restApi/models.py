@@ -33,7 +33,7 @@ class DietStats(models.Model):
     # one problem with DecimalField is that all of the values here must be non-negative -> TEST CASE
 
     protein_per_100g = models.FloatField()
-    carbohydrates_per_100g = models.FloatField()
+    sugar_per_100g = models.FloatField()
     fat_per_100g = models.FloatField()
     kcal_per_100g = models.FloatField()
     food_item_mass_in_grams = models.FloatField() 
@@ -50,8 +50,8 @@ class DietStats(models.Model):
         db_persist=True
     )
 
-    carbohydrates_consumed = models.GeneratedField(
-        expression= (models.F("carbohydrates_per_100g") * 
+    sugar_consumed = models.GeneratedField(
+        expression= (models.F("sugar_per_100g") * 
                      models.F("food_item_mass_in_grams")) / 
                      100,
         output_field=models.FloatField(),

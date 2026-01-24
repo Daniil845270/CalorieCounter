@@ -15,7 +15,7 @@ def variable_payload(
         meal_type='O',
         protein_per_100g=30.0,
         fat_per_100g=30.0,
-        carbohydrates_per_100g=30.0,
+        sugar_per_100g=30.0,
         kcal_per_100g=30.0,
         food_item_mass_in_grams=30,
         **kwargs
@@ -26,14 +26,14 @@ def variable_payload(
         "entry_date": entry_date,
         "meal_type": meal_type,
         "protein_per_100g": protein_per_100g,
-        "carbohydrates_per_100g": carbohydrates_per_100g,
+        "sugar_per_100g": sugar_per_100g,
         "fat_per_100g": fat_per_100g,
         "kcal_per_100g": kcal_per_100g,
         "food_item_mass_in_grams": food_item_mass_in_grams
     }
 
     if "alt_protein" in kwargs: reply['protein_per_100g'] = kwargs['alt_protein']
-    if "alt_carbohydrates" in kwargs:reply['carbohydrates_per_100g'] = kwargs['alt_carbohydrates']
+    if "alt_sugar" in kwargs:reply['sugar_per_100g'] = kwargs['alt_sugar']
     if "alt_fat" in kwargs: reply['fat_per_100g'] = kwargs['alt_fat']
     if "alt_kcal" in kwargs: reply['kcal_per_100g'] = kwargs['alt_kcal']
     if "alt_item_mass" in kwargs: reply['food_item_mass_in_grams'] = kwargs['alt_item_mass']
@@ -187,7 +187,7 @@ def test_macro_too_high_hypothesis_testing(macro_too_high) -> None:
 
     macro_too_high = {
         "alt_protein": macro_too_high,
-        "alt_carbohydrates": macro_too_high,
+        "alt_sugar": macro_too_high,
         "alt_fat": macro_too_high,
     }
 
@@ -204,7 +204,7 @@ def test_macro_too_low_hypothesis_testing(macro_too_low) -> None:
 
     macro_too_low = {
         "alt_protein": macro_too_low,
-        "alt_carbohydrates": macro_too_low,
+        "alt_sugar": macro_too_low,
         "alt_fat": macro_too_low,
         "alt_kcal": macro_too_low,
         "alt_item_mass": macro_too_low,
@@ -269,7 +269,7 @@ def test_macros_sum_too_high_hypothesis_testing(macro_list) -> None:
 
     macro_sum_too_high = {
         "alt_protein": protein,
-        "alt_carbohydrates": sugar,
+        "alt_sugar": sugar,
         "alt_fat": fat,
     }
 

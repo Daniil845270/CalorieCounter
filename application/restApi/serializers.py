@@ -11,14 +11,14 @@ class DietStatsSerializer(serializers.ModelSerializer):
     def validate(self, data):
         
         if (data['protein_per_100g'] < 0 or 
-            data['carbohydrates_per_100g'] < 0 or 
+            data['sugar_per_100g'] < 0 or 
             data['fat_per_100g'] < 0 or
             data['food_item_mass_in_grams'] < 0 or
             data['kcal_per_100g'] < 0):
             raise serializers.ValidationError('nutrition values can not be negative')
         
         if (data['protein_per_100g'] > 100 or 
-            data['carbohydrates_per_100g'] > 100 or 
+            data['sugar_per_100g'] > 100 or 
             data['fat_per_100g'] > 100):
             raise serializers.ValidationError('100 grams of food can not have more than a 100g of a macronutrient')
         
@@ -28,7 +28,7 @@ class DietStatsSerializer(serializers.ModelSerializer):
             data['kcal_per_100g'] > 900):
             raise serializers.ValidationError('The food mass or kcal value is too big.')
         
-        if data['protein_per_100g'] + data['carbohydrates_per_100g'] + data['fat_per_100g'] > 100:
+        if data['protein_per_100g'] + data['sugar_per_100g'] + data['fat_per_100g'] > 100:
             raise serializers.ValidationError("Sum of macronutrients per 100g can not 100g")
         
         """
@@ -64,7 +64,7 @@ class DietStatsSerializer(serializers.ModelSerializer):
 # this serialiser doesn't really need validation since I'm not deserialising data
 class AverageKcalSerializer(serializers.Serializer):
     protein_consumed__avg = serializers.FloatField(read_only=True)
-    carbohydrates_consumed__avg = serializers.FloatField(read_only=True)
+    sugar_consumed__avg = serializers.FloatField(read_only=True)
     fat_consumed__avg = serializers.FloatField(read_only=True)
     kcal_consumed__avg = serializers.FloatField(read_only=True) 
 
