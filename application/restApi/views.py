@@ -1,5 +1,5 @@
-from restApi.models import DietStats
-from restApi.serializers import DietStatsSerializer, AverageKcalSerializer
+from restApi.models import DietStats, FoodDescriptionModel, FoodEntryModel
+from restApi.serializers import DietStatsSerializer, AverageKcalSerializer, FoodDescriptionSerializer, FoodEntrySerializer
 from rest_framework import mixins
 from rest_framework import generics
 import datetime
@@ -7,6 +7,26 @@ from django.db.models import Avg, Sum
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+
+class FoodDescriptionView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    queryset = FoodDescriptionModel.objects.all()
+    serializer_class = FoodDescriptionSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs) 
+
+class FoodEntryView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    queryset = FoodEntryModel.objects.all()
+    serializer_class = FoodEntrySerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs) 
 
 class DietStatsView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     queryset = DietStats.objects.all()

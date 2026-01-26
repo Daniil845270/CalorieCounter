@@ -1,6 +1,79 @@
 from django.db import models
 import datetime
-# from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import User
+
+class FoodDescriptionModel(models.Model):
+    description_owner = models.ForeignKey(User, 
+                              related_name="food_descriptions", 
+                              on_delete=models.CASCADE
+                              )
+    
+    item_name = models.CharField(max_length=100)
+
+    prtn100 = models.FloatField()
+
+    carb100 = models.FloatField()
+
+    fat100 = models.FloatField()
+
+    kcal100 = models.FloatField()
+
+    created_at = models.DateTimeField( 
+        default=datetime.datetime.today,
+    )
+
+    first_created_date = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    last_updated_date = models.DateTimeField(
+        auto_now=True,
+    )
+
+    # this feature will be cool to add in the future
+    # image = models. ImageField(upload_to="images/FoodDescription", blank=True, null=True)
+
+    def __str__ (self):
+        return f"A description for {self.item_name} made by {self.description_owner.username}"
+    
+class FoodEntryModel(models.Model):
+
+    description = models.ForeignKey(FoodDescriptionModel, 
+                              related_name="entries", 
+                              on_delete=models.CASCADE
+                              )
+    entry_owner = models.ForeignKey(User, 
+                              related_name="food_entries", 
+                              on_delete=models.CASCADE
+                              )
+
+    item_type = models.CharField( 
+        max_length=1,
+        choices={
+            "B": "Breakfast",
+            "L": "Lunch",
+            "D": "Dinner",
+            "S": "Snack",
+            "O": "Other",
+        },
+    )
+
+    item_mass = models.FloatField() 
+    
+    consumed_date = models.DateTimeField( 
+        default=datetime.datetime.today,
+    )
+
+    # first_created_date = models.DateTimeField(
+    #     auto_now_add=True,
+    # )
+
+    # last_updated_date = models.DateTimeField(
+    #     auto_now=True,
+    # )
+
+    def __str__ (self):
+        return f"An entry record of {self.description.item_name} made by {self.entry_owner.username} on {self.consumed_date}"
 
 class DietStats(models.Model):
     """
