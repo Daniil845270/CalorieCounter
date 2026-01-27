@@ -1,6 +1,8 @@
 sandbox.py
 notesAlt.py
 media/
+pip-version.txt
+pip-list.txt
 
 # Finder
 .DS_Store

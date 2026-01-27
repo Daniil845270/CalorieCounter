@@ -7,29 +7,20 @@ class FoodDescriptionModel(models.Model):
                               related_name="food_descriptions", 
                               on_delete=models.CASCADE
                               )
-    
     item_name = models.CharField(max_length=100)
-
     prtn100 = models.FloatField()
-
     carb100 = models.FloatField()
-
     fat100 = models.FloatField()
-
     kcal100 = models.FloatField()
-
     created_at = models.DateTimeField( 
         default=datetime.datetime.today,
     )
-
     first_created_date = models.DateTimeField(
         auto_now_add=True,
     )
-
     last_updated_date = models.DateTimeField(
         auto_now=True,
     )
-
     # this feature will be cool to add in the future
     # image = models. ImageField(upload_to="images/FoodDescription", blank=True, null=True)
 
@@ -46,7 +37,6 @@ class FoodEntryModel(models.Model):
                               related_name="food_entries", 
                               on_delete=models.CASCADE
                               )
-
     item_type = models.CharField( 
         max_length=1,
         choices={
@@ -57,17 +47,13 @@ class FoodEntryModel(models.Model):
             "O": "Other",
         },
     )
-
     item_mass = models.FloatField() 
-    
     consumed_date = models.DateTimeField( 
         default=datetime.datetime.today,
     )
-
     # first_created_date = models.DateTimeField(
     #     auto_now_add=True,
     # )
-
     # last_updated_date = models.DateTimeField(
     #     auto_now=True,
     # )

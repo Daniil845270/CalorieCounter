@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from restApi import views
 from rest_framework.urlpatterns import format_suffix_patterns
 # from django.conf import settings
@@ -8,6 +8,7 @@ urlpatterns = [
     path("diet/", views.DietStatsView.as_view()),
     path("descriptions/", views.FoodDescriptionView.as_view()),
     path("entries/", views.FoodEntryView.as_view()),
+    path('silk/', include('silk.urls', namespace='silk')),
 
 ]
 
