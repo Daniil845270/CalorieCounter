@@ -1,47 +1,61 @@
 # CalorieCounter
 
-Protocol for when I (eventually) break the schema again:
+CalorieCounter is a Django REST Framework backend API for logging meals and tracking food energy and nutrients (macros).
 
-Scorched earth approach:
+## Why this project exists
 
-cd application
-1) Move into the Django project root
-From CalorieCounter/:
+I completed an MSc Computer Science (Conversion) where the capstone project was heavily front-end focused. I wanted to go deeper on backend engineering: data modelling, validation, API design, authentication/authorization, testing, and deployment.
 
-    cd application
+This project is my “real-world REST API” sandbox. The goal is to build something end-to-end that is not just CRUD, while keeping the scope small enough to iterate quickly.
 
-You should now be in the directory that contains manage.py and db.sqlite3.
+## Project approach (high level)
 
-2) Delete the SQLite database
-Your DB file is here: CalorieCounter/application/db.sqlite3
-Delete it:
+1) Pick a production-style web API framework and commit to it (Django REST Framework).
+2) Learn the framework properly (docs, tutorials, small spikes).
+3) Build an MVP, then iterate via refactors and feature expansion.
 
-    rm -f db.sqlite3
-    rm -f db.sqlite3-journal db.sqlite3-wal db.sqlite3-shm
+## Current status
 
-3) Delete all restApi migrations (keep __init__.py)
-Your migrations live here:CalorieCounter/application/restApi/migrations/
-Delete all migration files except __init__.py:
+This is an alpha project under active development. Expect breaking changes: endpoints and the database schema may change frequently. During development, the local database is treated as disposable. 
 
-    find restApi/migrations -type f -name "*.py" ! -name "__init__.py" -delete
+Main API code lives in `application/restApi/`.
 
-Optional but recommended: wipe compiled migration caches too:
+### What works today
 
-    find restApi/migrations -type d -name "__pycache__" -exec rm -rf {} +
+- Basic API to create and retrieve food/meal entries stored in a database.
+- Early validation and tests for common edge cases (still expanding).
 
-At this point, restApi/migrations/ should contain only __init__.py (and possibly an empty __pycache__ if recreated later).
+### In progress
 
-4) Optional cleanup: clear other Python caches
-Not required, but keeps things tidy:
+- Adding user accounts.
+- Implementing authentication, permissions, and refactoring the data model to support per-user data.
 
-    find . -type d -name "__pycache__" -exec rm -rf {} +
-    find . -type f -name "*.pyc" -delete
+### Planned
 
-5) Recreate fresh initial migrations and migrate
+- Per-user summaries and statistics (weekly/monthly/yearly views).
+- A small front-end UI to visualise the backend functionality.
+- Deployment of backend (and front end) to the cloud, with a public instance.
 
-    python manage.py makemigrations restApi
-    python manage.py migrate
+## Tech stack
 
-You should see it create restApi/migrations/0001_initial.py, a brand new db.sqlite3 and apply:
-Django core migrations (auth/admin/etc.)
-your new restApi.0001_initial
+Python </br>
+Django + Django REST Framework (web framework and API layer) </br>
+SQLite for local development, with a plan to switch to PostgreSQL for deployment </br>
+pytest + Hypothesis for automated tests, including property-based testing </br>
+
+## File structure overview
+
+The Django project root is application/ (contains manage.py).</br>
+The main API app is application/restApi/ (models, serializers, views, URLs).</br>
+Tests live in application/restApi/tests/.</br>
+Development notes and workflow live in docs/DEV.md.</br>
+
+For a detailed file tree, look here [look here](docs/DEV.md)
+
+## Quickstart (development)
+
+1) Clone the repository.
+2) Create and activate a Python virtual environment (for example, venv).
+3) Install dependencies from requirements.lock.txt.
+4) Run the local development server from the application/ directory.
+
