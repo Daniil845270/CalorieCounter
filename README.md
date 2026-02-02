@@ -1,7 +1,5 @@
 # CalorieCounter
 
-CalorieCounter is a Django REST Framework backend API for logging meals and tracking food energy and nutrients (macros).
-
 ## Why this project exists
 
 I completed an MSc Computer Science (Conversion) where the capstone project was heavily front-end focused. I wanted to go deeper on backend engineering: data modelling, validation, API design, authentication/authorization, testing, and deployment.
