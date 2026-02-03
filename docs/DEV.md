@@ -24,6 +24,20 @@
 
 [go back](/README.md)
 
+# how to squash commits
+
+1) Start an interactive rebase for the last N commits:</br>
+`git rebase -i HEAD~N`</br>
+2) An editor opens with something like:</br>
+`pick 3e6d31f api improvements...`</br>
+`pick a1a53f7 added food entry description validator...`</br>
+Change it to:</br>
+`pick 3e6d31f api improvements...`</br>
+`squash a1a53f7 added food entry description validator...`</br>
+Save and close.</br>
+3) Git will open another editor to edit the combined commit message. Keep one message or rewrite it. Save and close.</br>
+4) Push the rewritten history safely:</br>
+`git push --force-with-lease`</br>
 
 # Protocol for when I (eventually) break the schema again:
 

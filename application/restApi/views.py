@@ -6,27 +6,53 @@ import datetime
 from django.db.models import Avg, Sum
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
-
-class FoodDescriptionView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+class LCFoodDescriptionView(generics.ListCreateAPIView):
     queryset = FoodDescriptionModel.objects.all()
     serializer_class = FoodDescriptionSerializer
+    permission_classes = [IsAuthenticated]
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
+    def get_queryset(self):
+        user = self.request.user
+        queryset = super().get_queryset()
+        return queryset.filter(description_owner=user)
+    
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs) 
+class RUDFoodDescriptionView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = FoodDescriptionModel.objects.all()
+    serializer_class = FoodDescriptionSerializer
+    permission_classes = [IsAuthenticated]
 
-class FoodEntryView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    def get_queryset(self):
+        user = self.request.user
+        queryset = super().get_queryset()
+        return queryset.filter(description_owner=user)
+
+class LCFoodEntryView(generics.ListCreateAPIView):
     queryset = FoodEntryModel.objects.all()
     serializer_class = FoodEntrySerializer
+    permission_classes = [IsAuthenticated]
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
+    def get_queryset(self):
+        user = self.request.user
+        queryset = super().get_queryset()
+        return queryset.filter(entry_owner=user)
+    
+class RUDFoodEntryView(generics.ListCreateAPIView):
+    queryset = FoodEntryModel.objects.all()
+    serializer_class = FoodEntrySerializer
+    permission_classes = [IsAuthenticated]
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs) 
+    def get_queryset(self):
+        user = self.request.user
+        queryset = super().get_queryset()
+        return queryset.filter(entry_owner=user)
+
+"""
+and I have just realised that instead of this I could (and in fact should have used from the beginning) 
+a RetrieveUpdateDestroyAPIView, CreateAPIView and ListAPIView that actually does more than I wanted
+"""
 
 class DietStatsView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     queryset = DietStats.objects.all()

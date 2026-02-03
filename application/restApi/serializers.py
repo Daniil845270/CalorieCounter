@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import DietStats, FoodDescriptionModel, FoodEntryModel
 import datetime
+from django.contrib.auth.models import User
 
 # for the validators of the new models, I reused the same logic for the old validators
 # good enough for now, but later audit the code and improve upon it
@@ -10,6 +11,7 @@ class FoodDescriptionSerializer(serializers.ModelSerializer):
     Carbohydrate_per_100g = serializers.FloatField(source="carb100")
     Fat_per_100g = serializers.FloatField(source="fat100")
     Kcal_per_100g = serializers.FloatField(source="kcal100")
+    description_owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     
     class Meta:
@@ -23,8 +25,8 @@ class FoodDescriptionSerializer(serializers.ModelSerializer):
             "Fat_per_100g",
             "Kcal_per_100g",
             "created_at",
-            "first_created_date",
-            "last_updated_date"
+            "first_created_date", # consider changing this and below to a hidden field 
+            "last_updated_date" 
         ]
 
     def validate(self, data):
@@ -51,8 +53,8 @@ class FoodDescriptionSerializer(serializers.ModelSerializer):
         """
         when I will start implementing the user class, I will need to adapt the code to support different timezones
         """
-        if data['created_at'] - datetime.date.today() > datetime.timedelta(days=6):
-            raise serializers.ValidationError("You can not enter items more than a week in a future")
+        # if data['created_at'] - datetime.date.today() > datetime.timedelta(days=6):
+        #     raise serializers.ValidationError("You can not enter items more than a week in a future")
         
         """
         Validating Free-form Unicode Text appears to be too big of a topic for the purpose of the project at the current state. 
@@ -78,19 +80,40 @@ class FoodDescriptionSerializer(serializers.ModelSerializer):
         return data
     
 class FoodEntrySerializer(serializers.ModelSerializer):
-    entries = FoodDescriptionSerializer()
+    entry_owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    description = serializers.PrimaryKeyRelatedField(queryset=FoodDescriptionModel.objects.none)
+    # entries = FoodDescriptionSerializer()
 
     class Meta:
         model = FoodEntryModel
         fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        request = self.context.get("request")
+        if request and hasattr(request, "user") and request.user and request.user.is_authenticated: 
+            self.fields["description"].queryset = FoodDescriptionModel.objects.filter(
+                description_owner=request.user
+            )
+        else:
+            self.fields["description"].queryset = FoodDescriptionModel.objects.none()
+
+
     
     def validate(self, data):
         if data['item_mass'] < 0:
             raise serializers.ValidationError('nutrition values can not be negative')
         
-        if data['food_item_mass_in_grams'] > 5000:
+        if data['item_mass'] > 5000:
             raise serializers.ValidationError('The food mass value is too big.')
-
+        
+        request = self.context.get("request")
+        if request and request.user and request.user.is_authenticated:
+            if data.description_owner_id != request.user.id:
+                raise serializers.ValidationError("You can only use your own descriptions.")
+        
+        return data
 
 
 class DietStatsSerializer(serializers.ModelSerializer):
