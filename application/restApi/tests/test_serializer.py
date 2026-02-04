@@ -6,7 +6,12 @@ import unicodedata
 from rest_framework.test import APIClient
 
 logger = logging.getLogger(__name__)
+"""
+in the future, replace the status number with the 
+from rest_framework import status
+self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
+"""
 
 # this function is absolutely disgusting, but it works, and at this stage rewriting is just not worth it
 def variable_payload(

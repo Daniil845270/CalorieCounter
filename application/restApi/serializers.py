@@ -182,3 +182,28 @@ class AverageKcalSerializer(serializers.Serializer):
     fat_consumed__avg = serializers.FloatField(read_only=True)
     kcal_consumed__avg = serializers.FloatField(read_only=True) 
 
+
+"""
+I am using this serialiser not to write anything to the database, and the only thing that it is useful for 
+is to check that the dates from the query parameters are in the correct format
+"""
+class SummaryViewSerializer(serializers.Serializer):
+    start = serializers.DateTimeField()
+    end = serializers.DateTimeField()
+
+    def validate(self, data):
+        if data['end'] < data['start'] :
+            raise serializers.ValidationError("Start date can not be after the end date")
+        return data
+
+
+# this serialiser returns a lot of unnecessary data, improve in the future
+class FullDataFoodEntriesSerializer(serializers.ModelSerializer):
+    description_details = FoodDescriptionSerializer(
+        source="description",
+        read_only=True
+    )
+
+    class Meta:
+        model = FoodEntryModel
+        fields = '__all__'

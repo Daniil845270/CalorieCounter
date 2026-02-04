@@ -10,6 +10,7 @@ urlpatterns = [
     path("entriesLC/", views.LCFoodEntryView.as_view()),
     path("descriptionsRUD/<int:pk>/", views.RUDFoodDescriptionView.as_view()),
     path("entriesRUD/<int:pk>/", views.RUDFoodEntryView.as_view()),
+    path("analytics/summary/", views.SummaryView.as_view()),
     path('silk/', include('silk.urls', namespace='silk')),
 ]
 
