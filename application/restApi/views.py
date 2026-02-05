@@ -3,11 +3,12 @@ from restApi.serializers import DietStatsSerializer, FoodDescriptionSerializer, 
 from rest_framework import mixins
 from rest_framework import generics
 import datetime
-from django.db.models import Avg, Sum
+from django.db.models import QuerySet, Avg, Sum
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+from restApi.service import CalculateSummary
 
 class LCFoodDescriptionView(generics.ListCreateAPIView):
     queryset = FoodDescriptionModel.objects.all()
@@ -84,8 +85,12 @@ class SummaryView(APIView):
                     consumed_date__range=(start, end)
                     )
             serializer = FullDataFoodEntriesSerializer(queryset, many=True)
+            data: list[QuerySet] = serializer.data 
+            CalculateSummary(data)
 
-            # now that I have a queryset, I can iterate over the instances, extract the data, make the calculations, and return the summary!
+
+
+            
             
             return Response(serializer.data)
 
