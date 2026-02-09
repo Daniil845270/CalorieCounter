@@ -1,18 +1,15 @@
 from django.db.models import QuerySet
-from datetime import datetime, date
 from django.utils.dateparse import parse_datetime
-from pprint import pprint
 import numpy as np
-
-"""
-When everything is done, implement mode
-"""
+from pprint import pprint
 
 def CalculateSummary(queryset: QuerySet):
 
     dataPerDay = PopulateDataPerDay(queryset)
     statisticsPerDay = DailySummary(dataPerDay)
-    # statisticsDailyDifference = DailyDifferenceAnalysis(statisticsPerDay)
+    statisticsDailyDifference = DailyDifferenceAnalysis(statisticsPerDay)
+
+    return statisticsPerDay, statisticsDailyDifference
 
 """
 This function would look at the difference item types (breakfast, lunch ect) across days and calculate statistics such as mean, median etc
@@ -20,39 +17,44 @@ and return a single dictionary with the resultant values for each item type and 
 it should return the stats 
 """
 
-#                         statisticOfTheDay[meal_type][f"{macronutrient}Sum"] = np.sum(valueArray)
-#                         statisticOfTheDay[meal_type][f"{macronutrient}Mean"] = np.mean(valueArray)
-#                         statisticOfTheDay[meal_type][f"{macronutrient}Median"] = np.median(valueArray)
-#                         # statisticOfTheDay[meal_type][f"{macronutrient}Mode"] = implement this 
-#                         statisticOfTheDay[meal_type][f"{macronutrient}Std"] = np.std(valueArray)
-#                         statisticOfTheDay[meal_type][f"{macronutrient}Var"] = np.var(valueArray)
-
-
 def DailyDifferenceAnalysis(statisticsPerDay):
 
-    dataPerDay: list[dict] = []
+    dailyDifference = {
+        'consumed_date': [],
+        'cumulative': {'item_mass': [], 'protein': [], 'carbohydrate': [], 'fat': [], 'kcal': [], 'item_name': []},
+        'B': {'item_mass': [], 'protein': [], 'carbohydrate': [], 'fat': [], 'kcal': [], 'item_name': []},
+        'L': {'item_mass': [], 'protein': [], 'carbohydrate': [], 'fat': [], 'kcal': [], 'item_name': []},
+        'D': {'item_mass': [], 'protein': [], 'carbohydrate': [], 'fat': [], 'kcal': [], 'item_name': []},
+        'S': {'item_mass': [], 'protein': [], 'carbohydrate': [], 'fat': [], 'kcal': [], 'item_name': []},
+        'O': {'item_mass': [], 'protein': [], 'carbohydrate': [], 'fat': [], 'kcal': [], 'item_name': []},
+    }
 
     for dailySummary in statisticsPerDay:
-        dailyDifference = {
-            'consumed_date': [],
-            'cumulative': {
-                "item_mass": [],
-                "protein": [],
-                "carbohydrate": [],
-                "fat": [],
-                "kcal": [],
-                "item_name": [],
-            }
-        }
+        dailyDifference['consumed_date'].append(dailySummary['consumed_date']) 
         for item_type, nutrient_info in dailySummary.items():
-            if item_type == 'cumulative': 
-                pass
-            elif item_type != 'cumulative' and item_type != 'consumed_date':
-                for macronutrient, valueArray in nutrient_info.items():
-                    pass
-            else:
-                pass
+            if item_type != 'consumed_date':
+                for macronutrient, value in nutrient_info.items():
+                    dailyDifference[item_type][macronutrient].append(value)
 
+    for item_type, nutrient_info in dailyDifference.items(): 
+        if item_type != 'consumed_date':
+            for macronutrient in ['item_mass', 'protein', 'carbohydrate', 'fat', 'kcal']:
+                if dailyDifference[item_type][macronutrient] != []:
+                    dailyDifference[item_type][f"{macronutrient}Sum"] = sum(dailyDifference[item_type][macronutrient])
+                    dailyDifference[item_type][f"{macronutrient}Mean"] = np.mean(dailyDifference[item_type][macronutrient])
+                    dailyDifference[item_type][f"{macronutrient}Median"] = np.median(dailyDifference[item_type][macronutrient])
+                    dailyDifference[item_type][f"{macronutrient}Std"] = np.std(dailyDifference[item_type][macronutrient])
+                    dailyDifference[item_type][f"{macronutrient}Var"] = np.var(dailyDifference[item_type][macronutrient])
+                else:
+                    dailyDifference[item_type][f"{macronutrient}Sum"] = 0
+                    dailyDifference[item_type][f"{macronutrient}Mean"] = 0
+                    dailyDifference[item_type][f"{macronutrient}Median"] = 0
+                    dailyDifference[item_type][f"{macronutrient}Std"] = 0
+                    dailyDifference[item_type][f"{macronutrient}Var"] = 0
+
+                del dailyDifference[item_type][macronutrient]
+
+    return dailyDifference
 
 """
 This function would return a breakdown dictionary of what food items were eaten at breakfast, 
@@ -80,24 +82,24 @@ def DailySummary(dataPerDay):
             if meal_type != 'consumed_date':
                 statisticOfTheDay[meal_type] = {}
                 for macronutrient, valueArray in nutrient_info.items():
+                    # print(nutrient_info)
                     if macronutrient != 'item_name':
-                        statisticOfTheDay[meal_type][f"{macronutrient}"] = np.sum(valueArray)
-                        (
-                            statisticOfTheDay['cumulative'][f"{macronutrient}"]
-                        ) = np.append(statisticOfTheDay['cumulative'][f"{macronutrient}"], valueArray) 
+                        statisticOfTheDay[meal_type][f"{macronutrient}"] = sum(valueArray)
+                        statisticOfTheDay['cumulative'][f"{macronutrient}"].append(sum(valueArray))
                     else:
                         statisticOfTheDay[meal_type]['item_name'] = valueArray
                         statisticOfTheDay['cumulative']['item_name'].append(valueArray)
 
         for key, value in statisticOfTheDay['cumulative'].items():
             if key != 'item_name':
-                statisticOfTheDay['cumulative'][key] = np.sum(value)
+                statisticOfTheDay['cumulative'][key] = sum(value)
 
-        pprint(statisticOfTheDay, width=120, sort_dicts=False)
+        # pprint(statisticOfTheDay, width=120, sort_dicts=False)
         statisticsPerDay.append(statisticOfTheDay)
     return statisticsPerDay
 
 def PopulateDataPerDay(queryset: QuerySet):
+    # pprint(queryset, width=60, sort_dicts=False, compact=False)
 
     dataPerDay: list[dict] = []
 
@@ -117,19 +119,19 @@ def PopulateDataPerDay(queryset: QuerySet):
                 foundDate = True
                 # print(item_type, data.keys())
                 if item_type in data.keys():
-                    data[item_type]["item_mass"] = np.append(data[item_type]["item_mass"], item_mass)
-                    data[item_type]["protein"] = np.append(data[item_type]["protein"], protein)
-                    data[item_type]["carbohydrate"] = np.append(data[item_type]["carbohydrate"], carbohydrate)
-                    data[item_type]["fat"] = np.append(data[item_type]["fat"], fat) 
-                    data[item_type]["kcal"] = np.append(data[item_type]["kcal"], kcal)
+                    data[item_type]["item_mass"].append(item_mass)
+                    data[item_type]["protein"].append(protein) 
+                    data[item_type]["carbohydrate"].append(carbohydrate) 
+                    data[item_type]["fat"].append(fat)
+                    data[item_type]["kcal"].append(kcal) 
                     data[item_type]["item_name"].append(item_name)
                 else:
                     data[item_type] = {
-                        "item_mass": np.array([item_mass]),
-                        "protein": np.array([protein]), 
-                        "carbohydrate": np.array([carbohydrate]), 
-                        "fat": np.array([fat]), 
-                        "kcal": np.array([kcal]),
+                        "item_mass": [item_mass],
+                        "protein": [protein], 
+                        "carbohydrate": [carbohydrate], 
+                        "fat": [fat], 
+                        "kcal": [kcal],
                         "item_name": [item_name], 
                     }
 
@@ -138,11 +140,11 @@ def PopulateDataPerDay(queryset: QuerySet):
                 {
                     'consumed_date' : consumed_date,
                     item_type: {
-                        "item_mass": np.array([item_mass]),
-                        "protein": np.array([protein]), 
-                        "carbohydrate": np.array([carbohydrate]), 
-                        "fat": np.array([fat]), 
-                        "kcal": np.array([kcal]),
+                        "item_mass": [item_mass],
+                        "protein": [protein], 
+                        "carbohydrate": [carbohydrate], 
+                        "fat": [fat], 
+                        "kcal": [kcal],
                         "item_name": [item_name], 
                     }
                 }

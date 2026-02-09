@@ -57,14 +57,9 @@ class RUDFoodEntryView(generics.ListCreateAPIView):
 SummaryView is designed give a snapshot of the statistics for a period of time,
 be that a day(s), week(s), month(s), year(s)
 
-the accepted request should be in a format of GET /analytics/summary?start=YYYY-MM-DD&end=YYYY-MM-DD 
-(also including the time, since I moved to datetime)
+the accepted request must be in a format of GET /analytics/summary?start=YYYY-MM-DDThh:mm[:ss[.uuuuuu]][+HH:MM|-HH:MM|Z]&end=YYYY-MM-DDThh:mm[:ss[.uuuuuu]][+HH:MM|-HH:MM|Z]
 
-may also implement the presents (/analytics/summary?preset=last_7_days)
-
-the return object should contain the summaries of of energy and macronutrients in the form of mean, median and mode
-    more specifically, I need to return the statistics of the energy and macros per 100 grams AND for the actual amount of 
-    food items consumed (values per 100 / grams consumed)
+Write the rest of documentation for this function
 
 """
 class SummaryView(APIView):
@@ -77,7 +72,7 @@ class SummaryView(APIView):
             start, end = data['start'], data['end']
             serializer = SummaryViewSerializer(data={'start': start, 'end': end})
             if not serializer.is_valid():
-                return Response(serializer.errors)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             user = self.request.user
             queryset = FoodEntryModel.objects.filter(
                 entry_owner=user
@@ -86,18 +81,14 @@ class SummaryView(APIView):
                     )
             serializer = FullDataFoodEntriesSerializer(queryset, many=True)
             data: list[QuerySet] = serializer.data 
-            CalculateSummary(data)
-
-
-
-            
-            
-            return Response(serializer.data)
+            # return  Response(data)
+            statisticsPerDay, statisticsDailyDifference = CalculateSummary(data)
+            return Response([statisticsPerDay, statisticsDailyDifference])
 
         elif 'preset' in data:
             return Response({"hello": "contains preset"})
         
-        return Response(status.HTTP_400_BAD_REQUEST) # search online on how to return bad request error
+        return Response({"detail": "Bad request"}, status=status.HTTP_400_BAD_REQUEST)
 
 class TimeseriesView(APIView):
 

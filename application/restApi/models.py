@@ -21,11 +21,9 @@ class FoodDescriptionModel(models.Model):
     last_updated_date = models.DateTimeField(
         auto_now=True,
     )
-    # this feature will be cool to add in the future
-    # image = models. ImageField(upload_to="images/FoodDescription", blank=True, null=True)
 
     def __str__ (self):
-        return f"A description for {self.item_name} made by {self.description_owner.username}"
+        return f"Description of {self.item_name}"
     
 class FoodEntryModel(models.Model):
 
@@ -51,15 +49,9 @@ class FoodEntryModel(models.Model):
     consumed_date = models.DateTimeField( 
         default=datetime.datetime.today,
     )
-    # first_created_date = models.DateTimeField(
-    #     auto_now_add=True,
-    # )
-    # last_updated_date = models.DateTimeField(
-    #     auto_now=True,
-    # )
 
     def __str__ (self):
-        return f"An entry record of {self.description.item_name} made by {self.entry_owner.username} on {self.consumed_date}"
+        return f"An entry of {self.description.item_name} consumed on {self.consumed_date}"
 
 class DietStats(models.Model):
     """

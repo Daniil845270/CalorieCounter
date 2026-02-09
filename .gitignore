@@ -3,6 +3,7 @@ notesAlt.py
 media/
 pip-version.txt
 pip-list.txt
+data.py
 
 # Finder
 .DS_Store
