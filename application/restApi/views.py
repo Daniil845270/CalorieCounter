@@ -1,14 +1,24 @@
 from restApi.models import DietStats, FoodDescriptionModel, FoodEntryModel
-from restApi.serializers import DietStatsSerializer, FoodDescriptionSerializer, FoodEntrySerializer, SummaryViewSerializer, FullDataFoodEntriesSerializer
-from rest_framework import mixins
-from rest_framework import generics
-import datetime
-from django.db.models import QuerySet, Avg, Sum
+from restApi.serializers import (DietStatsSerializer, 
+                                 FoodDescriptionSerializer, 
+                                 FoodEntrySerializer, 
+                                 SummaryViewSerializer, 
+                                 FullDataFoodEntriesSerializer, 
+                                 UserSerializer)
+from rest_framework import mixins, generics
+from django.db.models import QuerySet
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import status
 from restApi.service import CalculateSummary
+from django.contrib.auth.models import User
+ 
+
+class CreateUserView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [AllowAny]
 
 class LCFoodDescriptionView(generics.ListCreateAPIView):
     queryset = FoodDescriptionModel.objects.all()

@@ -6,11 +6,11 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     path("diet/", views.DietStatsView.as_view()),
-    path("descriptionsLC/", views.LCFoodDescriptionView.as_view()),
-    path("entriesLC/", views.LCFoodEntryView.as_view()),
-    path("descriptionsRUD/<int:pk>/", views.RUDFoodDescriptionView.as_view()),
-    path("entriesRUD/<int:pk>/", views.RUDFoodEntryView.as_view()),
-    path("analytics/summary/", views.SummaryView.as_view()),
+    path("descriptionsLC/", views.LCFoodDescriptionView.as_view(), name='descriptionsLC '),
+    path("entriesLC/", views.LCFoodEntryView.as_view(), name='entriesLC'),
+    path("descriptionsRUD/<int:pk>/", views.RUDFoodDescriptionView.as_view(), name='descriptionsRUD'),
+    path("entriesRUD/<int:pk>/", views.RUDFoodEntryView.as_view(), name='entriesRUD'),
+    path("analytics/summary/", views.SummaryView.as_view(), name='analytics-summary'),
     path('silk/', include('silk.urls', namespace='silk')),
 ]
 
