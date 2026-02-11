@@ -6,7 +6,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     path("diet/", views.DietStatsView.as_view()),
-    path("descriptionsLC/", views.LCFoodDescriptionView.as_view(), name='descriptionsLC '),
+    path("descriptionsLC/", views.LCFoodDescriptionView.as_view(), name='descriptionsLC'),
     path("entriesLC/", views.LCFoodEntryView.as_view(), name='entriesLC'),
     path("descriptionsRUD/<int:pk>/", views.RUDFoodDescriptionView.as_view(), name='descriptionsRUD'),
     path("entriesRUD/<int:pk>/", views.RUDFoodEntryView.as_view(), name='entriesRUD'),
