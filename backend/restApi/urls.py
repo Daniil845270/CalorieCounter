@@ -5,7 +5,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 # from django.conf.urls.static import static
 
 urlpatterns = [
-    path("diet/", views.DietStatsView.as_view()),
+    # path("diet/", views.DietStatsView.as_view()), -> old endpoint that does not have nay authorisation implementations
     path("descriptionsLC/", views.LCFoodDescriptionView.as_view(), name='descriptionsLC'),
     path("entriesLC/", views.LCFoodEntryView.as_view(), name='entriesLC'),
     path("descriptionsRUD/<int:pk>/", views.RUDFoodDescriptionView.as_view(), name='descriptionsRUD'),

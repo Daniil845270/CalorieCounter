@@ -134,6 +134,7 @@ class DietStatsView(
 ):
     queryset = DietStats.objects.all()
     serializer_class = DietStatsSerializer
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
