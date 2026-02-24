@@ -60,7 +60,7 @@ function Form({ route, method }) {
 
       <input
         className="form-input"
-        type="text"
+        type="password"
         value={confirm_password}
         onChange={(e) => setConfirm_password(e.target.value)}
         placeholder="confirm password.com"
