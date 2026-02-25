@@ -70,41 +70,41 @@ function DescriptionForm({ route }) {
       <form onSubmit={handleSubmit} className="form-container">
         <h1>{"A description form"}</h1>
         <input
-          className="form-input"
+          className="form-input p-4 ..."
           type="text"
           value={itemName}
           onChange={(e) => setItemName(e.target.value)}
           placeholder="item name"
         />
         <input
-          className="form-input"
+          className="form-input p-4 ..."
           type="number"
           value={proteinPer100g}
           onChange={(e) => setProteinPer100g(e.target.value)}
           placeholder="setProteinPer100g"
         />
         <input
-          className="form-input"
+          className="form-input p-4 ..."
           type="number"
           value={carbohydratePer100g}
           onChange={(e) => setCarbohydratePer100g(e.target.value)}
           placeholder="setCarbohydratePer100g"
         />
         <input
-          className="form-input"
+          className="form-input p-4 ..."
           type="number"
           value={fatPer100g}
           onChange={(e) => setFatPer100g(e.target.value)}
           placeholder="setFatPer100g"
         />
         <input
-          className="form-input"
+          className="form-input p-4 ..."
           type="number"
           value={kcalPer100g}
           onChange={(e) => setKcalPer100g(e.target.value)}
           placeholder="setKcalPer100g"
         />
-        <button className="form-button" type="submit">
+        <button className="form-button" type="submit" class="p-4 ...">
           {"Submit a description form"}
         </button>
       </form>
