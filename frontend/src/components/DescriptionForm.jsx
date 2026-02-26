@@ -174,7 +174,7 @@ function DescriptionForm({ route }) {
 
               <div className="flex justify-center mt-6">
                 <button className="btn" type="submit">
-                  Submit a description form
+                  Submit a description 
                 </button>
               </div>
             </form>
@@ -211,7 +211,7 @@ function DescriptionForm({ route }) {
                   </div>
                 )}
 
-                {/* // Design 2: “Card grid” (each item is its own mini-card) */}
+                {/* // Beautified list design */}
                 {!loading && descriptionList.length > 0 && (
                   <ul className="mt-4 space-y-3">
                     {descriptionList.map((d) => (
@@ -253,6 +253,10 @@ function DescriptionForm({ route }) {
                     ))}
                   </ul>
                 )}
+
+
+
+                
               </div>
             </div>
           </div>
