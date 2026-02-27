@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import api from "../api";
+import { useNavigate } from "react-router-dom";
+import Header from "./Header";
 
 function DescriptionForm({ route }) {
   const [itemName, setItemName] = useState("");
@@ -9,6 +11,7 @@ function DescriptionForm({ route }) {
   const [kcalPer100g, setKcalPer100g] = useState("");
   const [descriptionList, setDescriptionList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const fetchDescriptionList = async () => {
     setLoading(true);
@@ -57,29 +60,7 @@ function DescriptionForm({ route }) {
       {/* wider container so we have room for 2 columns */}
       <div className="w-full max-w-5xl ">
         {/* PAGE HEADER + NAV BUTTONS */}
-        <div className="mb-8">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-            <div>
-              <h1 className="text-4xl font-bold">Food descriptions</h1>
-              <p className="text-sm opacity-70 mt-1">
-                Add new foods on the left. Browse saved items on the right.
-              </p>
-            </div>
-
-            {/* 3 horizontal buttons */}
-            <div className="flex flex-wrap gap-3">
-              <button type="button" className="btn btn-outline">
-                Button 1
-              </button>
-              <button type="button" className="btn btn-primary">
-                Button 2
-              </button>
-              <button type="button" className="btn">
-                Button 3
-              </button>
-            </div>
-          </div>
-        </div>
+        <Header pageName="descriptions" />
 
         {/* stack on mobile, side-by-side on md+ */}
         <div className="flex flex-col md:flex-row gap-8 md:items-start ">
@@ -174,7 +155,7 @@ function DescriptionForm({ route }) {
 
               <div className="flex justify-center mt-6">
                 <button className="btn" type="submit">
-                  Submit a description 
+                  Submit a description
                 </button>
               </div>
             </form>
@@ -253,10 +234,6 @@ function DescriptionForm({ route }) {
                     ))}
                   </ul>
                 )}
-
-
-
-                
               </div>
             </div>
           </div>

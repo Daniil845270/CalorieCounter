@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import api from "../api";
+import { useNavigate } from "react-router-dom";
+import Header from "./Header";
 
 function ItemForm({ descriptionRoute, entriesRoute }) {
   const [entryDescription, setEntryDescription] = useState("");
@@ -7,8 +9,8 @@ function ItemForm({ descriptionRoute, entriesRoute }) {
   const [itemMass, setItemMass] = useState("");
   const [entriesList, setEntriesList] = useState([]);
   const [descriptionsList, setDescriptionsList] = useState([]);
-
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const fetchLists = async () => {
     setLoading(true);
@@ -59,29 +61,7 @@ function ItemForm({ descriptionRoute, entriesRoute }) {
       {/* wider container so we have room for 2 columns */}
       <div className="w-full max-w-5xl ">
         {/* PAGE HEADER + NAV BUTTONS */}
-        <div className="mb-8">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-            <div>
-              <h1 className="text-4xl font-bold">Food items</h1>
-              <p className="text-sm opacity-70 mt-1">
-                Add new foods on the left. Browse saved items on the right.
-              </p>
-            </div>
-
-            {/* 3 horizontal buttons */}
-            <div className="flex flex-wrap gap-3">
-              <button type="button" className="btn btn-outline">
-                Button 1
-              </button>
-              <button type="button" className="btn btn-primary">
-                Button 2
-              </button>
-              <button type="button" className="btn">
-                Button 3
-              </button>
-            </div>
-          </div>
-        </div>
+        <Header pageName="entries" />
 
         {/* stack on mobile, side-by-side on md+ */}
         <div className="flex flex-col md:flex-row gap-8 md:items-start ">
@@ -163,14 +143,6 @@ function ItemForm({ descriptionRoute, entriesRoute }) {
                   </span>
                 </label>
               </div>
-
-              {/* <input
-                className="form-input"
-                type="number"
-                value={itemMass}
-                onChange={(e) => setItemMass(e.target.value)}
-                placeholder="item mass"
-              /> */}
 
               <fieldset className="fieldset">
                 <legend className="fieldset-legend w-full">
